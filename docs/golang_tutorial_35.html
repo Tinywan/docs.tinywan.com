@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>35 - 读文件 - 万物联网服务平台</title>
+    
+    
+    
+    
+</head>
+<body>
+<div id="root"></div>
+<script type="application/payload+json">
+{"id":"yWP4GW","summary":[{"id":"","title":"第0章 远程安装","articles":[]},{"id":"","title":"第1章 介绍和安装","articles":[{"title":"1 - 介绍和安装","ref":"\/docs\/golang_tutorial_01.md","path":"\/docs\/golang_tutorial_01.html","children":[]},{"title":"2 - Hello World ","ref":"\/docs\/golang_tutorial_02.md","path":"\/docs\/golang_tutorial_02.html","children":[]}]},{"id":"","title":"第2章 变量、类型和常量","articles":[{"title":"3 - 变量","ref":"\/docs\/golang_tutorial_03.md","path":"\/docs\/golang_tutorial_03.html","children":[]},{"title":"4 - 类型","ref":"\/docs\/golang_tutorial_04.md","path":"\/docs\/golang_tutorial_04.html","children":[]},{"title":"5 - 常量","ref":"\/docs\/golang_tutorial_05.md","path":"\/docs\/golang_tutorial_05.html","children":[]}]},{"id":"","title":"第3章 函数和包","articles":[{"title":"6 - 函数","ref":"\/docs\/golang_tutorial_06.md","path":"\/docs\/golang_tutorial_06.html","children":[]},{"title":"7 - 包","ref":"\/docs\/golang_tutorial_07.md","path":"\/docs\/golang_tutorial_07.html","children":[]}]},{"id":"","title":"第4章 条件和循环语句","articles":[{"title":"8 - if else 语句","ref":"\/docs\/golang_tutorial_08.md","path":"\/docs\/golang_tutorial_08.html","children":[]},{"title":"9 - 循环语句","ref":"\/docs\/golang_tutorial_09.md","path":"\/docs\/golang_tutorial_09.html","children":[]},{"title":"10 - switch语句","ref":"\/docs\/golang_tutorial_10.md","path":"\/docs\/golang_tutorial_10.html","children":[]}]},{"id":"","title":"第5章 数组、切片和变参函数","articles":[{"title":"11 - 数组和切片","ref":"\/docs\/golang_tutorial_11.md","path":"\/docs\/golang_tutorial_11.html","children":[]},{"title":"12 - 变 参函数","ref":"\/docs\/golang_tutorial_12.md","path":"\/docs\/golang_tutorial_12.html","children":[]}]},{"id":"","title":"第6章 更多的类型","articles":[{"title":"13 - Map","ref":"\/docs\/golang_tutorial_13.md","path":"\/docs\/golang_tutorial_13.html","children":[]},{"title":"14 - 字符串","ref":"\/docs\/golang_tutorial_14.md","path":"\/docs\/golang_tutorial_14.html","children":[]}]},{"id":"","title":"第7章 指针、结构体和方法","articles":[{"title":"15 - 指针","ref":"\/docs\/golang_tutorial_15.md","path":"\/docs\/golang_tutorial_15.html","children":[]},{"title":"16 -  结构体","ref":"\/docs\/golang_tutorial_16.md","path":"\/docs\/golang_tutorial_16.html","children":[]},{"title":"17 -  方法","ref":"\/docs\/golang_tutorial_17.md","path":"\/docs\/golang_tutorial_17.html","children":[]}]},{"id":"","title":"第8章 接口","articles":[]},{"id":"","title":"第9章 并发","articles":[{"title":" 21 - 协程","ref":"\/docs\/golang_tutorial_21.md","path":"\/docs\/golang_tutorial_21.html","children":[]}]},{"id":"","title":"第10章 面向对象编程","articles":[]},{"id":"","title":"第11章 延迟和错误处理","articles":[{"title":"35 - 读文件","ref":"\/docs\/golang_tutorial_35.md","path":"\/docs\/golang_tutorial_35.html","children":[]}]},{"id":"","title":"文档","articles":[{"title":"如何编写 Go代码","ref":"\/docs\/how_to_write_go_code.md","path":"\/docs\/how_to_write_go_code.html","children":[]}]}],"config":{"pluginsConfig":{"theme-default":{"auto_open":true,"navs":[{"title":"ThinkAPI","url":"https:\/\/docs.topthink.com\/think-api\/1835085"},{"title":"Tinywan","url":"https:\/\/market.topthink.com\/website"}]}},"title":"万物联网服务平台","plugins":["highlight","comment"],"theme":"classic"},"file":{"path":"\/docs\/golang_tutorial_35.html","content":"\n35 - 读取文件  \n========================\n\n上一节：[第十六篇 结构体](\/docs\/golang_tutorial_16.md)  \n下一节：[第十八篇 接口一](\/docs\/golang_tutorial_18.md)  \n\n这是本Golang系列教程的第35篇。   \n\n文件读取是在任何编程语言中执行的最常见操作之一。在本教程中，我们将了解如何使用Go读取文件。  \n\n本教程包含以下部分  \n\n* 将整个文件读入内存  \n  *  使用绝对文件路径  \n  *  将文件路径作为命令行标志传递  \n  *  将文件捆绑在二进制文件中   \n* 以小块读取文件  \n* 逐行读取文件  \n\n## 将整个文件读入内存  \n\n最基本的文件操作之一是将整个文件读入内存。这是在[ioutil](https:\/\/golang.org\/pkg\/io\/ioutil\/)包的[ReadFile](https:\/\/golang.org\/pkg\/io\/ioutil\/#ReadFile)函数的帮助下完成的。  \n\n让我们从go程序所在的目录中读取一个文件。在`GOROOT`内部创建了一个文件夹，里面有一个文本文件`test.txt`，可以从我们的Go程序中读取`filehandling.go`。`test.txt`包含文本`“Hello World. Welcome to file handling in Go“`。这是我的文件夹结构。   \n\n```golang\nsrc  \n    filehandling\n        filehandling.go\n        test.txt\n```\n\n让我们马上看看代码吧。   \n\n```golang\npackage main\n\nimport (  \n    \"fmt\"\n    \"io\/ioutil\"\n)\n\nfunc main() {  \n    data, err := ioutil.ReadFile(\"test.txt\")\n    if err != nil {\n        fmt.Println(\"File reading error\", err)\n        return\n    }\n    fmt.Println(\"Contents of file:\", string(data))\n}\n```\n\n请从当地环境运行此程序，因为无法在操场上阅读文件。  \n\n上面的程序中的9行，读取文件并返回存储在其中的字节片`data`。排队号码 14我们转换`data`为a string并显示文件的内容。  \n\n请从test.txt所在的位置运行该程序。  \n\n例如，在`linux \/ mac`的情况下，如果`test.txt`位于`home \/naveen\/go\/src\/filehandling`，则使用以下步骤运行该程序，   \n\n```golang\n$]cd \/home\/naveen\/go\/src\/filehandling\/\n$]go install filehandling\n$]workspacepath\/bin\/filehandling\n```\n\n对于`windows`，如果`test.txt`位于`C：\\ Users \\ naveen.r \\ go \\ src \\ filehandling`，则使用以下步骤运行此程序。  \n\n```golang\n> cd C:\\Users\\naveen.r\\go\\src\\filehandling\n> go install filehandling\n> workspacepath\\bin\\filehandling.exe \n```\n\n程序的输出为：  \n\n```golang\nContents of file: Hello World. Welcome to file handling in Go.  \n```\n\n如果此程序从任何其他位置运行，例如尝试运行该程序`\/home\/userdirectory`，它将打印以下错误。  \n```golang\nFile reading error open test.txt: The system cannot find the file specified.    \n```\n\n原因是Go是一种编译语言。`go install`它是什么，它从源代码创建二进制文件。二进制文件独立于源代码，可以从任何位置运行。由于`test.txt`在运行二进制文件的位置找不到，程序会抱怨它无法找到指定的文件。  \n\n有三种方法可以解决这个问题，  \n\n* 1、使用绝对文件路径  \n* 2、将文件路径作为命令行标志传递  \n* 3、将文本文件与二进制文件捆绑在一起  \n\n让我们一个一个讨论。  \n\nGo协程的介绍就到这里。祝你有美好的一天！  \n希望你喜欢阅读。请留下宝贵的意见和反馈:)  ","meta":{"mtime":""}}}
+</script>
+
+    <script src="../tmp/book/624c24de5f335/asset/lodash/lodash.min.js?v=4.17.21"></script>
+
+    <script src="../tmp/book/624c24de5f335/asset/react/react.production.min.js?v=17.0.2"></script>
+
+    <script src="../tmp/book/624c24de5f335/asset/react-dom/react-dom.production.min.js?v=17.0.2"></script>
+
+    <script src="../tmp/book/624c24de5f335/asset/reader/index.js?v=1.0.24"></script>
+
+    <script src="../tmp/book/624c24de5f335/asset/plugins/comment/index.js?v=0.0.1"></script>
+
+    <script src="../tmp/book/624c24de5f335/asset/plugins/highlight/index.js?v=1.0.0"></script>
+
+    <script src="../tmp/book/624c24de5f335/asset/plugins/theme-classic/index.js?v=1.0.2"></script>
+
+<script type="text/javascript">
+    TopWrite.bootstrap();
+</script>
+</body>
+</html>

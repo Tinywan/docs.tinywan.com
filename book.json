@@ -1,0 +1,23 @@
+{
+    "pluginsConfig": {
+        "theme-default": {
+            "auto_open": true,
+            "navs": [
+                {
+                    "title": "ThinkAPI",
+                    "url": "https:\/\/docs.topthink.com\/think-api\/1835085"
+                },
+                {
+                    "title": "Tinywan",
+                    "url": "https:\/\/market.topthink.com\/website"
+                }
+            ]
+        }
+    },
+    "title": "万物联网服务平台",
+    "plugins": [
+        "highlight",
+        "comment"
+    ],
+    "theme": "classic"
+}

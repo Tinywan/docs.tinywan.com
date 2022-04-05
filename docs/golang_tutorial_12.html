@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>12 - 变 参函数 - 万物联网服务平台</title>
+    
+    
+    
+    
+</head>
+<body>
+<div id="root"></div>
+<script type="application/payload+json">
+{"id":"yWP4GW","summary":[{"id":"","title":"第0章 远程安装","articles":[]},{"id":"","title":"第1章 介绍和安装","articles":[{"title":"1 - 介绍和安装","ref":"\/docs\/golang_tutorial_01.md","path":"\/docs\/golang_tutorial_01.html","children":[]},{"title":"2 - Hello World ","ref":"\/docs\/golang_tutorial_02.md","path":"\/docs\/golang_tutorial_02.html","children":[]}]},{"id":"","title":"第2章 变量、类型和常量","articles":[{"title":"3 - 变量","ref":"\/docs\/golang_tutorial_03.md","path":"\/docs\/golang_tutorial_03.html","children":[]},{"title":"4 - 类型","ref":"\/docs\/golang_tutorial_04.md","path":"\/docs\/golang_tutorial_04.html","children":[]},{"title":"5 - 常量","ref":"\/docs\/golang_tutorial_05.md","path":"\/docs\/golang_tutorial_05.html","children":[]}]},{"id":"","title":"第3章 函数和包","articles":[{"title":"6 - 函数","ref":"\/docs\/golang_tutorial_06.md","path":"\/docs\/golang_tutorial_06.html","children":[]},{"title":"7 - 包","ref":"\/docs\/golang_tutorial_07.md","path":"\/docs\/golang_tutorial_07.html","children":[]}]},{"id":"","title":"第4章 条件和循环语句","articles":[{"title":"8 - if else 语句","ref":"\/docs\/golang_tutorial_08.md","path":"\/docs\/golang_tutorial_08.html","children":[]},{"title":"9 - 循环语句","ref":"\/docs\/golang_tutorial_09.md","path":"\/docs\/golang_tutorial_09.html","children":[]},{"title":"10 - switch语句","ref":"\/docs\/golang_tutorial_10.md","path":"\/docs\/golang_tutorial_10.html","children":[]}]},{"id":"","title":"第5章 数组、切片和变参函数","articles":[{"title":"11 - 数组和切片","ref":"\/docs\/golang_tutorial_11.md","path":"\/docs\/golang_tutorial_11.html","children":[]},{"title":"12 - 变 参函数","ref":"\/docs\/golang_tutorial_12.md","path":"\/docs\/golang_tutorial_12.html","children":[]}]},{"id":"","title":"第6章 更多的类型","articles":[{"title":"13 - Map","ref":"\/docs\/golang_tutorial_13.md","path":"\/docs\/golang_tutorial_13.html","children":[]},{"title":"14 - 字符串","ref":"\/docs\/golang_tutorial_14.md","path":"\/docs\/golang_tutorial_14.html","children":[]}]},{"id":"","title":"第7章 指针、结构体和方法","articles":[{"title":"15 - 指针","ref":"\/docs\/golang_tutorial_15.md","path":"\/docs\/golang_tutorial_15.html","children":[]},{"title":"16 -  结构体","ref":"\/docs\/golang_tutorial_16.md","path":"\/docs\/golang_tutorial_16.html","children":[]},{"title":"17 -  方法","ref":"\/docs\/golang_tutorial_17.md","path":"\/docs\/golang_tutorial_17.html","children":[]}]},{"id":"","title":"第8章 接口","articles":[]},{"id":"","title":"第9章 并发","articles":[{"title":" 21 - 协程","ref":"\/docs\/golang_tutorial_21.md","path":"\/docs\/golang_tutorial_21.html","children":[]}]},{"id":"","title":"第10章 面向对象编程","articles":[]},{"id":"","title":"第11章 延迟和错误处理","articles":[{"title":"35 - 读文件","ref":"\/docs\/golang_tutorial_35.md","path":"\/docs\/golang_tutorial_35.html","children":[]}]},{"id":"","title":"文档","articles":[{"title":"如何编写 Go代码","ref":"\/docs\/how_to_write_go_code.md","path":"\/docs\/how_to_write_go_code.html","children":[]}]}],"config":{"pluginsConfig":{"theme-default":{"auto_open":true,"navs":[{"title":"ThinkAPI","url":"https:\/\/docs.topthink.com\/think-api\/1835085"},{"title":"Tinywan","url":"https:\/\/market.topthink.com\/website"}]}},"title":"万物联网服务平台","plugins":["highlight","comment"],"theme":"classic"},"file":{"path":"\/docs\/golang_tutorial_12.html","content":"11 - 变参函数  \n========================\n\n上一节：[第十篇 if else 语句](\/docs\/golang_tutorial_10.md)   \n下一节：[第十二篇 包](\/docs\/golang_tutorial_12.md)  \n\n这是本Golang系列教程的第11篇。   \n\n## 什么是变参函数？  \n\n变参函数是指可以接受可变数量的参数的函数。  \n\n## 语法？  \n\n如果一个函数的最后一个参数由 `...T` 表示，则表示该函数可以接受任意数量的类型为 T 的参数。\n\n请注意只有函数的最后一个参数才能指定为可变参数。  \n\n## 案例  \n\n你有没有想过为什么 `append `函数可以将任意数量的值追加到切片末尾？这是因为它是一个变参函数。`append` 的原型为 `func append(slice []Type, elems ...Type) []Type`，其中 `elems` 是一个可变参数。 \n\n让我们来创建一个自己的变参函数。我们将编写一个程序来判断某个特定整数是否包含在某个整数列表中。  \n\n```golang\npackage main\n\nimport (  \n    \"fmt\"\n)\n\nfunc find(num int, nums ...int) {  \n    fmt.Printf(\"type of nums is %T\\n\", nums)\n    found := false\n    for i, v := range nums {\n        if v == num {\n            fmt.Println(num, \"found at index\", i, \"in\", nums)\n            found = true\n        }\n    }\n    if !found {\n        fmt.Println(num, \"not found in \", nums)\n    }\n    fmt.Printf(\"\\n\")\n}\nfunc main() {  \n    find(89, 89, 90, 95)\n    find(45, 56, 67, 45, 90, 109)\n    find(78, 38, 56, 98)\n    find(87)\n}\n```\n\n上面的程序中，`func find(num int, nums ...int) `可以接受任意数量的参数。`...int `在内部表示为切片。在这里 `nums` 的类型为 `[]int`。  \n\n第 10 行利用 `range for` 遍历 `nums` 切片，如果找到 num 则打印 num 所在位置，否则打印没有找到。  \n\n上面的程序输出如下：  \n\n```golang\ntype of nums is []int  \n89 found at index 0 in [89 90 95]\n\ntype of nums is []int  \n45 found at index 2 in [56 67 45 90 109]\n\ntype of nums is []int  \n78 not found in  [38 56 98]\n\ntype of nums is []int  \n87 not found in  []  \n```\n\n在第 25 行，`find `只有一个参数。我们没有传递任何参数给 `nums ...int`。这是合法的，（译者注：如果没有给可变参数传递任何值，则可变参数为 `nil `切片），在这里 `nums `是一个 `nil `切片，长度和容量都是`0`。  \n\n## 传递切片给可变参数  \n\n我们已经提到 `...T `在内部表示为类型是 `[]T` 切片。如果真是这样，可以传递一个切片给可变参数吗？让我们从下面的例子中寻找答案：  \n\n```golang\npackage main\n\nimport (  \n    \"fmt\"\n)\n\nfunc find(num int, nums ...int) {  \n    fmt.Printf(\"type of nums is %T\\n\", nums)\n    found := false\n    for i, v := range nums {\n        if v == num {\n            fmt.Println(num, \"found at index\", i, \"in\", nums)\n            found = true\n        }\n    }\n    if !found {\n        fmt.Println(num, \"not found in \", nums)\n    }\n    fmt.Printf(\"\\n\")\n}\nfunc main() {  \n    nums := []int{89, 90, 95}\n    find(89, nums)\n}\n```\n\n在第 23 行，我们没有将若干数量的参数传递给 `find` 的最后一个参数， 而是传递了一个切片。这是非法的，我们不能传递一个切片给可变参数。上面的程序将报错：`main.go:23: cannot use nums (type []int) as type int in argument to find`。  \n\n这里有一个语法糖可以用来将切片传递给变参函数。可以在切片后面加 `...`，这样会将切片展开为其中的各个元素并将它们传递给变参函数。这样该程序将正常工作。  \n\n上面的程序如果将第23行的 `find(89, nums)` 改为` find(89, nums...)`，程序将通过编译，并输出如下：   \n\n```golang\ntype of nums is []int\n89 found at index 0 in [89 90 95]\n```\n\n变参函数的介绍到此结束。感谢阅读。  \n\n上一节：[第十一篇 数组和切片](\/docs\/golang_tutorial_10.md)   \n下一节：[第十三篇 Map](\/docs\/golang_tutorial_12.md)  \n","meta":{"mtime":""}}}
+</script>
+
+    <script src="../tmp/book/624c24de5f335/asset/lodash/lodash.min.js?v=4.17.21"></script>
+
+    <script src="../tmp/book/624c24de5f335/asset/react/react.production.min.js?v=17.0.2"></script>
+
+    <script src="../tmp/book/624c24de5f335/asset/react-dom/react-dom.production.min.js?v=17.0.2"></script>
+
+    <script src="../tmp/book/624c24de5f335/asset/reader/index.js?v=1.0.24"></script>
+
+    <script src="../tmp/book/624c24de5f335/asset/plugins/comment/index.js?v=0.0.1"></script>
+
+    <script src="../tmp/book/624c24de5f335/asset/plugins/highlight/index.js?v=1.0.0"></script>
+
+    <script src="../tmp/book/624c24de5f335/asset/plugins/theme-classic/index.js?v=1.0.2"></script>
+
+<script type="text/javascript">
+    TopWrite.bootstrap();
+</script>
+</body>
+</html>
