@@ -16,7 +16,8 @@
     },
     "title": "万物联网服务平台",
     "plugins": [
-        "highlight"
+        "highlight",
+        "comment"
     ],
     "theme": "classic"
 }
